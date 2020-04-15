@@ -35,7 +35,7 @@ print
 my $pkgstatus = get_pkgstatus($pkg);
 for my $d (@distributions) {
     my $s = $pkgstatus->{$d} || '?';
-    print "$d : <span class=\"$s\">$s</span><br/>\n";
+    print "<span class=\"distribution\">$d</span> : <span class=\"$s\">$s</span><br/>\n";
 }
 
 print br,a({-href=>'https://github.com/bmwiedemann/ismypackagereproducibleyet'}, 'contribute feedback');

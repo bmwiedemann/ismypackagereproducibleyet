@@ -4,10 +4,13 @@ body {
 }
 
 .reproducible {
- color: #fff;
- background-color: #050;
+ color: #5e5;
 }
 
 .FTBR {
+ color: #f55;
+}
+
+.FTBFS {
  background-color: #700;
 }
