@@ -7,19 +7,34 @@ use DB_File;
 our $datadir = "/usr/local/share/impryo/";
 our @distributions = qw(openSUSE ArchLinux Debian);
 
-my $pkg = "bash";
-my %pkgstatus;
-
-for my $d (@distributions) {
-    my $dbname = "$datadir\L$d.db";
-    my %data;
-    tie(%data, "DB_File", $dbname, O_RDONLY) or die "error opening DB $dbname: $!";
-    $pkgstatus{$d} = $data{$pkg};
-    untie %data;
+sub get_pkgstatus($)
+{ my $pkg = shift;
+    my %pkgstatus;
+    for my $d (@distributions) {
+        my $dbname = "$datadir\L$d.db";
+        my %data;
+        tie(%data, "DB_File", $dbname, O_RDONLY) or die "error opening DB $dbname: $!";
+        $pkgstatus{$d} = $data{$pkg};
+        untie %data;
+    }
+    return \%pkgstatus;
 }
 
+my $pkg = param("pkg") || "bash";
+$pkg =~ s/[^a-zA-Z0-9_.+-]//g; # sanitize untrusted user input
+param("pkg", $pkg);
+
 print header("text/html").start_html(-title=>"ismypackagereproducibleyet", -style=>"/impryo/main.css");
+
+print
+    start_form(-name=>'form', -method=>'get'),
+    textfield(-name=>'pkg', -class=>'text'),
+    submit(-name=>'query', -class=>'smbutton'),
+    end_form.br.p;
+
+my $pkgstatus = get_pkgstatus($pkg);
 for my $d (@distributions) {
-    print "$d : <span class=\"$pkgstatus{$d}\">$pkgstatus{$d}</span><br/>\n";
+    my $s = $pkgstatus->{$d} || '?';
+    print "$d : <span class=\"$s\">$s</span><br/>\n";
 }
 print end_html;
