@@ -5,6 +5,7 @@ use CGI ":standard";
 use DB_File;
 
 our $datadir = "/usr/local/share/impryo/";
+our $cssbase = "/css/"; # needs trailing slash
 our @distributions = qw(openSUSE ArchLinux Debian);
 
 sub get_pkgstatus($)
@@ -24,7 +25,7 @@ my $pkg = param("pkg") || "bash";
 $pkg =~ s/[^a-zA-Z0-9_.+-]//g; # sanitize untrusted user input
 param("pkg", $pkg);
 
-print header("text/html").start_html(-title=>"ismypackagereproducibleyet", -style=>"/impryo/main.css");
+print header("text/html").start_html(-title=>"ismypackagereproducibleyet", -style=>"${cssbase}main.css");
 
 print
     start_form(-name=>'form', -method=>'get'),
