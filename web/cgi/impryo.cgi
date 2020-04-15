@@ -35,7 +35,9 @@ print
 my $pkgstatus = get_pkgstatus($pkg);
 for my $d (@distributions) {
     my $s = $pkgstatus->{$d} || '?';
-    print "<span class=\"distribution\">$d</span> : <span class=\"$s\">$s</span><br/>\n";
+    my $statusclass = $s;
+    $statusclass =~ s/FTBR_\d+/FTBR/; # for ArchLinux
+    print "<span class=\"distribution\">$d</span> : <span class=\"$statusclass\">$s</span><br/>\n";
 }
 
 print br,a({-href=>"https://maintainer.zq1.de/?pkg=$pkg"}, "find more info about $pkg");
