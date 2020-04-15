@@ -32,13 +32,15 @@ print
     textfield(-name=>'pkg', -class=>'text'),
     submit(-name=>'query', -class=>'smbutton'),
     end_form.br.p;
+print "Is <b>$pkg</b> reproducible in", br;
 
 my $pkgstatus = get_pkgstatus($pkg);
 for my $d (@distributions) {
-    my $s = $pkgstatus->{$d} || '?';
+    my $s = $pkgstatus->{$d} || 'not found';
     my $statusclass = $s;
     $statusclass =~ s/FTBR_\d+/FTBR/; # for ArchLinux
-    print "<span class=\"distribution\">$d</span> : <span class=\"$statusclass\">$s</span><br/>\n";
+    my $answer=($s eq "reproducible" ? "yes" : $s =~ /FTBR/ ? "no" : "dont know");
+    print "<span class=\"distribution\">$d</span> : <span class=\"$statusclass\"><b>$answer</b>: $s</span><br/>\n";
 }
 
 print br,a({-href=>"https://maintainer.zq1.de/?pkg=$pkg"}, "find more info about $pkg");
