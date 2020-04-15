@@ -18,8 +18,8 @@ for my $d (@distributions) {
     untie %data;
 }
 
-print header("text/html").start_html(-title=>"ismypackagereproducibleyet");
+print header("text/html").start_html(-title=>"ismypackagereproducibleyet", -style=>"/impryo/main.css");
 for my $d (@distributions) {
-    print "$d : $pkgstatus{$d}<br/>\n";
+    print "$d : <span class=\"$pkgstatus{$d}\">$pkgstatus{$d}</span><br/>\n";
 }
 print end_html;
