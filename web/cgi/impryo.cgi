@@ -38,5 +38,6 @@ for my $d (@distributions) {
     print "<span class=\"distribution\">$d</span> : <span class=\"$s\">$s</span><br/>\n";
 }
 
+print br,a({-href=>"https://maintainer.zq1.de/?pkg=$pkg"}, "find more info about $pkg");
 print br,a({-href=>'https://github.com/bmwiedemann/ismypackagereproducibleyet'}, 'contribute feedback');
 print end_html;
