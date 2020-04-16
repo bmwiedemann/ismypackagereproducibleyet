@@ -25,7 +25,10 @@ my $pkg = param("pkg") || "bash";
 $pkg =~ s/[^a-zA-Z0-9_.+-]//g; # sanitize untrusted user input
 param("pkg", $pkg);
 
-print header("text/html").start_html(-title=>"ismypackagereproducibleyet", -style=>"${cssbase}main.css");
+print header("text/html"),
+    start_html(-title=>"ismypackagereproducibleyet",
+        -style=>"${cssbase}main.css",
+        -head=>Link({-rel=>"shortcut icon", -href=>"/css/favicon.png"}));
 
 print
     start_form(-name=>'form', -method=>'get'),
