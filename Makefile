@@ -1,8 +1,9 @@
+wget=wget --progress=dot:mega -N
 all: fetch db
 
 fetch:
 	mkdir -p cache/in cache/out
-	(cd cache/in && wget -x -N https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json )
+	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json )
 
 db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db
 cache/out/opensuse.db: cache/in/rb.zq1.de/compare.factory/reproducible.json
