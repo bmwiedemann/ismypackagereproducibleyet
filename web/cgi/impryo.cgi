@@ -40,7 +40,7 @@ print "Is <b>$pkg</b> reproducible in", br;
 my $pkgstatus = get_pkgstatus($pkg);
 for my $d (@distributions) {
     my $s = $pkgstatus->{$d} || 'not found';
-    $s =~ s/FTBR_\d+/FTBR/; # for ArchLinux
+    $s =~ s/FTB(R|FS)_\d+/FTB$1/; # for ArchLinux
     my $statusclass = $s;
     my $answer=($s eq "reproducible" ? "yes" : $s =~ /FTBR/ ? "no" : "dont know");
     $s =~ s/FTBR/unreproducible = two builds gave different results/;
