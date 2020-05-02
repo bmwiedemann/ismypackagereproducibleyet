@@ -1,8 +1,9 @@
-#!/usr/bin/env -S perl -w
+#!/usr/bin/env perl
 # parsing 100MB of json for every page view is too slow
 # so we pre-process that data into DB files
 
 use strict;
+use warnings;
 use DB_File;
 use JSON::XS;
 
