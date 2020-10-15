@@ -14,3 +14,10 @@ body {
 .FTBFS {
  background-color: #700;
 }
+
+a:link {
+  color: #3780da;
+}
+a:visited {
+  color: #9364be;
+}
