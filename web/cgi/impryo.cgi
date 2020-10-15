@@ -43,9 +43,19 @@ for my $d (@distributions) {
     $s =~ s/FTB(R|FS)_\d+/FTB$1/; # for ArchLinux
     my $statusclass = $s;
     my $answer=($s eq "reproducible" ? "yes" : $s =~ /FTBR/ ? "no" : "dont know");
+    my $link="";
+    if($d eq "Debian") {
+        $link="https://tests.reproducible-builds.org/debian/rb-pkg/unstable/amd64/$pkg.html"
+    } elsif ($d eq "openSUSE" and $s eq "FTBR") {
+        $link="https://rb.zq1.de/compare.factory/$pkg-compare.out"
+    } elsif ($d eq "ArchLinux") {
+        $link="https://tests.reproducible-builds.org/archlinux/"
+    }
+    if($link) {$link = qq( See <a href="$link">test result</a>);}
+
     $s =~ s/FTBR/unreproducible = two builds gave different results/;
     $s =~ s/FTBFS/fails to build from source/;
-    print "<span class=\"distribution\">$d</span> : <span class=\"$statusclass\"><b>$answer</b>: $s</span><br/>\n";
+    print "<span class=\"distribution\">$d</span> : <span class=\"$statusclass\"><b>$answer</b>: $s</span>$link<br/>\n";
 }
 
 print br,a({-href=>"https://maintainer.zq1.de/?pkg=$pkg"}, "find more info about $pkg");
