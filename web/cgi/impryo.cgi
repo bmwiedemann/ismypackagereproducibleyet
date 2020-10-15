@@ -51,5 +51,5 @@ for my $d (@distributions) {
 print br,a({-href=>"https://maintainer.zq1.de/?pkg=$pkg"}, "find more info about $pkg");
 print br,a({-href=>'https://github.com/bmwiedemann/ismypackagereproducibleyet'}, 'contribute feedback'), p,
   a({-href=>"https://reproducible-builds.org/"},
-    img({-src=>"https://reproducible-builds.org/assets/images/logo-text.svg"}));
+    img({-src=>"//rb.zq1.de/images/logo-text.svg"}));
 print end_html;
