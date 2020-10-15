@@ -6,6 +6,7 @@ fetch:
 	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json )
 
 sync: db
+	perl -c web/cgi/impryo.cgi
 	./sync.sh
 
 db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db
