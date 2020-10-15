@@ -5,6 +5,9 @@ fetch:
 	mkdir -p cache/in cache/out
 	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json )
 
+sync: db
+	./sync.sh
+
 db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db
 cache/out/opensuse.db: cache/in/rb.zq1.de/compare.factory/reproducible.json
 	./json2db.pl $@ < $<
