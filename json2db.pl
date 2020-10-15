@@ -15,6 +15,7 @@ my %dbdata;
 foreach my $pkg (@$pkgs) {
     #print $pkg->{package}," ", $pkg->{status},"\n";
     $pkg->{status} =~ s/unreproducible/FTBR/;
+    next if $pkg->{suite} eq "experimental";
     $dbdata{$pkg->{package}} = $pkg->{status};
 }
 
