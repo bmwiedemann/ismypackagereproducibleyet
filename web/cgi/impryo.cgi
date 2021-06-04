@@ -32,7 +32,7 @@ print header("text/html"),
 
 print
     start_form(-name=>'form', -method=>'get'),
-    textfield(-name=>'pkg', -class=>'text', -accesskey=>'c'),
+    textfield(-name=>'pkg', -class=>'text', -accesskey=>'c', -size=>12),
     submit(-name=>'query', -class=>'smbutton'),
     end_form.br.p;
 print "Is <b>$pkg</b> reproducible in", br;

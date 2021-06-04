@@ -1,6 +1,14 @@
 body {
  color: #ddd;
  background-color: #000;
+ font-size: 140%;
+ margin: 1em;
+}
+
+input {
+ font-size: 150%;
+ padding: 0.4em;
+ margin: 0.3em;
 }
 
 .reproducible {
