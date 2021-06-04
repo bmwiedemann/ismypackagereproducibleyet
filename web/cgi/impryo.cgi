@@ -47,7 +47,7 @@ for my $d (@distributions) {
     if($d eq "Debian") {
         $link="https://tests.reproducible-builds.org/debian/rb-pkg/unstable/amd64/$pkg.html"
     } elsif ($d eq "openSUSE" and $s eq "FTBR") {
-        $link="https://rb.zq1.de/compare.factory/$pkg-compare.out"
+        $link="https://rb.zq1.de/compare.factory/diffs/$pkg-compare.out"
     } elsif ($d eq "ArchLinux") {
         $link="https://tests.reproducible-builds.org/archlinux/"
     }
