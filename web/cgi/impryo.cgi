@@ -6,7 +6,7 @@ use DB_File;
 
 our $datadir = "/usr/local/share/impryo/";
 our $cssbase = "/css/"; # needs trailing slash
-our @distributions = qw(openSUSE ArchLinux Debian);
+our @distributions = qw(openSUSE ArchLinux Debian Guix);
 
 sub get_pkgstatus($)
 { my $pkg = shift;
@@ -50,6 +50,8 @@ for my $d (@distributions) {
         $link="https://rb.zq1.de/compare.factory/diffs/$pkg-compare.out"
     } elsif ($d eq "ArchLinux") {
         $link="https://tests.reproducible-builds.org/archlinux/"
+    } elsif ($d eq "Guix") {
+        $link="https://qa.guix.gnu.org/package/$pkg"
     }
     if($link) {$link = qq( See <a href="$link">test result</a>);}
 
