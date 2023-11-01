@@ -1,0 +1,44 @@
+When testing reproducible builds of software distributions,
+you are supposed to produce a results json.
+That contains an array/list of entries.
+One entry per source (?or binary?) package.
+
+Such a package entry is a dict/hash value having the following keys:
+- architecture: the architecture the package was built on (?or for?)
+- build_date: the time the package was built as UNIX epoch
+  (=seconds since 1970-01-01 00:00:00 UTC)
+  depending on implementation it may be anywhere between the time when the build started or finished
+- package: name of the package without version
+- status: one of reproducible|unreproducible|FTBFS|notforus
+  - FTBFS means Fails To Build From Source
+  - notforus means this package is not meant to be built (e.g. arm-specific package on x86_64)
+  - reproducible means we got bit-by-bit identical binary packages built
+  - unreproducible means we got differing binary packages built
+- release: what distribution, project, suite or group this package belongs to
+- version: the version information of this package
+  should be detailed enough to account for added patches and build changes
+  ontop of upstream tarballs
+- other custom keys can be added and should be ignored by parsers
+  if they do not understand them e.g.
+  - build_duration: time it took to build in seconds, either int or float. null or missing if not available (e.g. for packages in waitdep state)
+  - build_compare_status: openSUSE-specific reproducible|unreproducible similar to status, but checked after applying some content-aware filters (similar to strip-nondeterminism)
+
+example json output:
+[
+   {
+      "architecture" : "x86_64",
+      "build_date" : 1486187303,
+      "package" : "0ad-data",
+      "status" : "FTBFS",
+      "release" : "openSUSE:Factory",
+      "version" : "0.0.20-2"
+   },
+   {
+      "architecture" : "x86_64",
+      "build_date" : 1486187363,
+      "package" : "2ping",
+      "status" : "reproducible",
+      "release" : "openSUSE:Factory",
+      "version" : "3.2.1-3"
+   }
+]
