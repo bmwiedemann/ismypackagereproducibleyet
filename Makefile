@@ -1,3 +1,4 @@
+SHELL=bash
 wget=wget --progress=dot:mega -N
 all: fetch db
 
