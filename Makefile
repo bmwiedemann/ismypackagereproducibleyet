@@ -3,7 +3,7 @@ all: fetch db
 
 fetch:
 	mkdir -p cache/in cache/out
-	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json )
+	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/{archlinux,debian}/reproducible.json https://qa.guix.gnu.org/reproducible.json )
 
 sync: db
 	perl -c web/cgi/impryo.cgi
@@ -17,6 +17,9 @@ cache/out/archlinux.db: cache/in/tests.reproducible-builds.org/archlinux/reprodu
 	./json2db.pl $@ < $<
 
 cache/out/debian.db: cache/in/tests.reproducible-builds.org/debian/reproducible.json
+	./json2db.pl $@ < $<
+
+cache/out/guix.db: cache/in/qa.guix.gnu.org/reproducible.json
 	./json2db.pl $@ < $<
 
 clean:
