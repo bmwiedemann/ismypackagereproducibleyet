@@ -9,7 +9,7 @@ sync: db
 	perl -c web/cgi/impryo.cgi
 	./sync.sh
 
-db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db
+db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db cache/out/guix.db
 cache/out/opensuse.db: cache/in/rb.zq1.de/compare.factory/reproducible.json
 	./json2db.pl $@ < $<
 
