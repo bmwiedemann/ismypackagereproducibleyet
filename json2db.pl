@@ -14,10 +14,16 @@ my %dbdata;
 
 foreach my $pkg (@$pkgs) {
     #print $pkg->{package}," ", $pkg->{status},"\n";
-    $pkg->{status} =~ s/unreproducible/FTBR/;
+    my $status = $pkg->{status};
+    $status =~ s/unreproducible/FTBR/; # openSUSE->Debian format
+    # Archlinux mapping:
+    $status =~ s/BAD/FTBR/;
+    $status =~ s/UNKWN/waitdep/;
+    $status =~ s/GOOD/reproducible/;
     $pkg->{suite}||="";
     next if $pkg->{suite} eq "experimental";
-    $dbdata{$pkg->{package}} = $pkg->{status};
+    $pkg->{package} ||= $pkg->{name}; # for Archlinux
+    $dbdata{$pkg->{package}} = $status;
 }
 
 my %tiedata;
