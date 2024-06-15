@@ -49,7 +49,7 @@ for my $d (@distributions) {
     } elsif ($d eq "openSUSE" and $s eq "FTBR") {
         $link="https://rb.zq1.de/compare.factory/diffs/$pkg-compare.out"
     } elsif ($d eq "ArchLinux") {
-        $link="https://tests.reproducible-builds.org/archlinux/"
+        $link="https://reproducible.archlinux.org/#$pkg" # FIXME: Needs proper URL to point to learn more
     } elsif ($d eq "Guix") {
         $link="https://qa.guix.gnu.org/package/$pkg"
     }
