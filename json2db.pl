@@ -8,6 +8,7 @@ use DB_File;
 use JSON::XS;
 
 my $outfile = shift or die "usage: $0 OUTPUT.db < INPUT.json";
+my $isarch = $outfile=~m/archlinux/;
 local $/;
 my $pkgs = decode_json(<>);
 my %dbdata;
@@ -17,9 +18,12 @@ foreach my $pkg (@$pkgs) {
     my $status = $pkg->{status};
     $status =~ s/unreproducible/FTBR/; # openSUSE->Debian format
     # Archlinux mapping:
-    $status =~ s/BAD/FTBR/;
-    $status =~ s/UNKWN/waitdep/;
-    $status =~ s/GOOD/reproducible/;
+    if($isarch) {
+        $status =~ s/BAD/FTBR/;
+        if(!$pkg->{has_diffoscope}) {$status=~s/FTBR/FTBFS/}
+        $status =~ s/UNKWN/waitdep/;
+        $status =~ s/GOOD/reproducible/;
+    }
     $pkg->{suite}||="";
     next if $pkg->{suite} eq "experimental";
     $pkg->{package} ||= $pkg->{name}; # for Archlinux
