@@ -4,13 +4,13 @@ all: fetch db
 
 fetch:
 	mkdir -p cache/in cache/out
-	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/debian/reproducible.json https://reproducible.archlinux.org/api/v0/pkgs/list https://qa.guix.gnu.org/reproducible.json )
+	(cd cache/in && ${wget} -x https://rb.zq1.de/compare.factory/reproducible.json https://tests.reproducible-builds.org/debian/reproducible.json https://reproducible.archlinux.org/api/v0/pkgs/list https://qa.guix.gnu.org/reproducible.json https://fedorapeople.org/~zbyszek/ismypackagereproducibleyet/fedora-rawhide.json )
 
 sync: db
 	perl -c web/cgi/impryo.cgi
 	./sync.sh
 
-db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db cache/out/guix.db
+db: cache/out/opensuse.db cache/out/archlinux.db cache/out/debian.db cache/out/fedora.db cache/out/guix.db
 cache/out/opensuse.db: cache/in/rb.zq1.de/compare.factory/reproducible.json
 	./json2db.pl $@ < $<
 
@@ -18,6 +18,9 @@ cache/out/archlinux.db: cache/in/reproducible.archlinux.org/api/v0/pkgs/list
 	./json2db.pl $@ < $<
 
 cache/out/debian.db: cache/in/tests.reproducible-builds.org/debian/reproducible.json
+	./json2db.pl $@ < $<
+
+cache/out/fedora.db: cache/in/fedorapeople.org/~zbyszek/ismypackagereproducibleyet/fedora-rawhide.json
 	./json2db.pl $@ < $<
 
 cache/out/guix.db: cache/in/qa.guix.gnu.org/reproducible.json
